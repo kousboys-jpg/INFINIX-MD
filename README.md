@@ -5,7 +5,7 @@ Il est conçu pour aider les admins à gérer efficacement leurs groupes WhatsAp
 
 <div align="center"> 
   <a href="https://git.io/typing-svg"> 
-    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=Knight-Bot;Multi+Device+Whatsapp+Bot;Coded+By+rebelle+masque" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=INFINX-MD;Multi+Device+Whatsapp+Bot;Coded+By+rebelle+masque" alt="Typing SVG" />
   </a> 
 </div> 
 
@@ -56,7 +56,7 @@ Il est conçu pour aider les admins à gérer efficacement leurs groupes WhatsAp
 Clique sur le bouton ci-dessous pour forker le dépôt **𝐈𝐍𝐅𝐈𝐍𝐈𝐗•𝐌𝐃** sur ton GitHub :
 
 <div align="center">
-  <a href="https://github.com/rebelle-masque/𝐈𝐍𝐅𝐈𝐍𝐈𝐗•𝐌𝐃-MD/fork">
+  <a href="https://github.com/RebelleMasque/INFINIX-MD/fork">
     <img src="https://img.shields.io/badge/Fork-Le%20dépôt-blue?style=for-the-badge" alt="Fork le dépôt"/>
   </a>
 </div>
@@ -79,17 +79,11 @@ Pour plus de personnalisation et un guide complet, clique ici :
     <img src="https://img.shields.io/badge/Déployer%20sur%20Panel-28a745?style=for-the-badge" alt="Déployer sur Panel"/>
   </a>
 </div>
-
-### Déployer sur VPS
-
 <div align="center">
   <a href="https://client.petrosky.io/aff.php?aff=394" target="_blank">
     <img src="https://img.shields.io/badge/Petrosky%20VPS-0078E7?style=for-the-badge" alt="Petrosky VPS"/>
   </a>
 </div>
-
-### Déployer sur le Panel ci-dessous
-
 <div align="center">
   <a href="https://dashboard.katabump.com/auth/login#d6b7d6" target="_blank">
     <img src="https://img.shields.io/badge/Katabump-D6B7D6?style=for-the-badge&logo=server&logoColor=black" alt="Katabump"/>
@@ -219,14 +213,6 @@ Ce n’est **PAS** un bot officiel WhatsApp. L’utilisation peut entraîner un 
 Utilise-le à tes propres risques. Les développeurs ne seront pas responsables des conséquences ou bannissements.
 
 ---
-
-## 📝 Légal
-
-- Ce projet n’est pas affilié à WhatsApp, ni autorisé, maintenu, sponsorisé ou approuvé par WhatsApp ou ses filiales.
-- C’est un logiciel indépendant et non officiel. Utilise-le à tes risques.
-- Ne spamme pas les gens avec ce bot.
-- Ne l’utilise pas pour des messages de masse ou des activités illégales.
-- Les développeurs ne prennent aucune responsabilité en cas de mauvais usage ou dégâts causés par ce programme.
 
 ### Licence (rappel)
 Ce projet est sous licence MIT, mais tu dois :
