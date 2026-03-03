@@ -32,13 +32,6 @@ Il est conçu pour aider les admins à gérer efficacement leurs groupes WhatsAp
 
 <br>
 
-<div align="left">
-  <b>ThorData : des proxys globaux fiables à un prix imbattable.</b><br><br>
-  Collecte de données en un clic avec une stabilité et une conformité niveau entreprise.<br>
-  Rejoignez des milliers de développeurs utilisant ThorData à grande échelle.<br><br>
-  🎁 <b>Offre exclusive :</b> Inscrivez-vous pour un essai gratuit de Residential Proxy + 2 000 appels <b>GRATUITS</b> à l’API SERP !
-</div>
-
 <br>
 
 <div align="left">
@@ -203,15 +196,6 @@ https://github.com/RebelleMasque/INFINIX-MD.git
 - [rebelle masque](https://github.com/RebelleMasque/)
 - [télégram groupe](http://t.me/+cJv8pOd1Em40ZGFk)
 - [WhatsApp groupe](https://chat.whatsapp.com/F9NbADb7L7v9SALfdBa9zq?mode=gi_t)
-
----
-
-## ⚠️ Avertissement important
-
-**Note :** Ce bot est créé uniquement à des fins éducatives.  
-Ce n’est **PAS** un bot officiel WhatsApp. L’utilisation peut entraîner un bannissement de ton compte WhatsApp.  
-Utilise-le à tes propres risques. Les développeurs ne seront pas responsables des conséquences ou bannissements.
-
 ---
 
 ### Licence (rappel)
@@ -222,11 +206,9 @@ Ce projet est sous licence MIT, mais tu dois :
 - Ne pas utiliser à des fins de spam ou malveillantes
 
 ---
-
 ## 📜 Copyright
 
-Copyright (c) 2024 rebelle masque. Tous droits réservés.
+Copyright (c) 2026 rebelle masque. Tous droits réservés.
 
 Ce projet contient aussi du code provenant de projets open source :
 - Baileys (Licence MIT)
-- Autres dépendances listées dans `package.json`
