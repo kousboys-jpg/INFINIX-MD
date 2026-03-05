@@ -10,7 +10,7 @@ Il est conçu pour aider les admins à gérer efficacement leurs groupes WhatsAp
 </div> 
 
 <div align="center"> 
-  <a href="https://youtube.com/@mr_unique_hacker"> 
+  <a href="https://wa.me/2250140768791"> 
     <img src="https://github.com/RebelleMasque/INFINIX-MD/blob/main/assets/bot_image.jpg" alt="𝐈𝐍𝐅𝐈𝐍𝐈𝐗•𝐌𝐃" height="300"> 
   </a> 
 </div>
