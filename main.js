@@ -26,6 +26,40 @@ setInterval(() => {
 }, 3 * 60 * 60 * 1000);
 
 const settings = require('./settings');
+// --- Dynamic prefix reader (without editing settings.js at runtime) ---
+function readPrefixFromSettingsFile() {
+    try {
+        const fs = require('fs');
+        const path = require('path');
+        const settingsPath = path.join(__dirname, 'settings.js');
+        if (!fs.existsSync(settingsPath)) return '.';
+        const content = fs.readFileSync(settingsPath, 'utf8');
+
+        // 1) direct: module.exports.prefix = '...';
+        // This may also be an expression like: process.env.PREFIX || '.'
+        const line = content.match(/module\.exports\.prefix\s*=\s*([^\n\r;]+)[;\n\r]/);
+        if (line && line[1]) {
+            const rhs = String(line[1]).trim();
+            // If RHS is a quoted string literal
+            const lit = rhs.match(/^(['"`])([\s\S]*?)\1$/);
+            if (lit && lit[2]) return String(lit[2]).trim();
+
+            // If RHS is an expression, take the LAST quoted literal as the fallback (e.g. process.env.PREFIX || '.')
+            const allLits = [...rhs.matchAll(/(['"`])([\s\S]*?)\1/g)].map(x => x[2]);
+            if (allLits.length) return String(allLits[allLits.length - 1]).trim();
+        }
+
+        // 2) object style: prefix: '...'
+        const m2 = content.match(/\bprefix\s*:\s*(['"`])([\s\S]*?)\1/);
+        if (m2 && m2[2]) return String(m2[2]).trim();
+
+        return '.';
+    } catch (e) {
+        return '.';
+    }
+}
+const prefix = '.'; // internal router prefix (do not change)
+
 require('./config.js');
 const { isBanned } = require('./lib/isBanned');
 const yts = require('yt-search');
@@ -405,6 +439,7 @@ const { anticallCommand, readState: readAnticallState } = require('./commands/an
 const { pmblockerCommand, readState: readPmBlockerState } = require('./commands/pmblocker');
 const settingsCommand = require('./commands/settings');
 const soraCommand = require('./commands/sora');
+const pinterestCommand = require('./commands/pinterest');
 
 // Global settings
 global.packname = settings.packname;
@@ -454,31 +489,50 @@ async function handleMessages(sock, messageUpdate, printLog) {
         // ANTI-MENTION (auto delete) - suppression des mentions de masse
         try {
             const { getAntimention } = require('./lib/index');
-            const enabled = !!getAntimention(chatId, 'on');
+            const enabled = !!(await getAntimention(chatId, 'on'));
             if (enabled && isGroup) {
-                const ctx = message.message?.extendedTextMessage?.contextInfo;
+                // Collect mentions from several message types
+                const ctx =
+                    message.message?.extendedTextMessage?.contextInfo ||
+                    message.message?.imageMessage?.contextInfo ||
+                    message.message?.videoMessage?.contextInfo ||
+                    message.message?.documentMessage?.contextInfo ||
+                    message.message?.conversation?.contextInfo ||
+                    null;
+
                 const mentioned = ctx?.mentionedJid || [];
-                const threshold = settings.antiMention?.threshold ?? 5;
+                const threshold = Number(settings.antiMention?.threshold ?? 5);
+
                 if (Array.isArray(mentioned) && mentioned.length >= threshold) {
                     const adminBypass = settings.antiMention?.adminBypass ?? true;
+
                     let senderIsAdmin = false;
                     if (adminBypass) {
                         const adminStatus = await isAdmin(sock, chatId, senderId);
-                        senderIsAdmin = adminStatus.isSenderAdmin;
+                        senderIsAdmin = !!adminStatus?.isSenderAdmin;
                     }
+
                     if (!senderIsAdmin) {
-                        await sock.sendMessage(chatId, { delete: message.key });
-                        // Optionnel: avertir
-                        // await sock.sendMessage(chatId, { text: '🚫 Mention de masse interdite.' }, { quoted: message });
-                        return;
+                        // Delete the message
+                        await sock.sendMessage(chatId, {
+                            delete: { remoteJid: chatId, fromMe: false, id: message.key.id, participant: senderId }
+                        }).catch(() => {});
+
+                        // Warn the sender
+                        await sock.sendMessage(chatId, {
+                            text: `⚠️ *Anti-mention activé*
+
+❌ Mention de masse détectée (${mentioned.length}).
+Merci d'éviter de mentionner tout le monde.`,
+                            contextInfo: channelInfo.contextInfo
+                        }, { quoted: message }).catch(() => {});
                     }
                 }
             }
         } catch (e) {
-            // ignore
+            console.error('ANTI-MENTION error:', e);
         }
-
-        const senderIsSudo = await isSudo(senderId);
+const senderIsSudo = await isSudo(senderId);
         const senderIsOwnerOrSudo = await isOwnerOrSudo(senderId, sock, chatId);
 
         // Handle button responses
@@ -515,7 +569,7 @@ const rawText = (
 
 // ✅ Dynamic prefix support (emoji/flags/etc.) without breaking existing command router:
 // We normalize any configured prefix to '.' internally, so the rest of the code keeps working.
-const configuredPrefix = settings?.prefix || '.';
+const configuredPrefix = readPrefixFromSettingsFile() || settings?.prefix || '.';
 const prefixList = Array.isArray(configuredPrefix) ? configuredPrefix : [configuredPrefix];
 
 // Find which prefix the user used
@@ -768,6 +822,11 @@ const userMessage = normalizedText
                 await unbanCommand(sock, chatId, message);
                 break;
             case userMessage === '.help' || userMessage === '.menu' || userMessage === '.bot' || userMessage === '.list':
+                try {
+                    if (userMessage === '.menu') {
+                        await sock.sendMessage(chatId, { react: { text: '🗂️', key: message.key } });
+                    }
+                } catch {}
                 await helpCommand(sock, chatId, message, global.channelLink);
                 commandExecuted = true;
                 break;
@@ -1278,19 +1337,23 @@ const userMessage = normalizedText
                 await instagramCommand(sock, chatId, message);
                 break;
             
-            case userMessage.startsWith('.apk ' ) || userMessage === '.apk':
+            case userMessage.startsWith(prefix + 'apk ') || userMessage === prefix + 'apk':
                 await apkCommand(sock, chatId, message);
                 return;
 
-            case userMessage.startsWith('.apkdl ' ) || userMessage === '.apkdl':
+            case userMessage.startsWith(prefix + 'apkdl ') || userMessage === prefix + 'apkdl':
                 await apkdlCommand(sock, chatId, message);
                 return;
 
-            case userMessage.startsWith('.antimention'):
+            case userMessage.startsWith(prefix + 'pinterest') || userMessage.startsWith(prefix + 'pin') || userMessage.startsWith(prefix + 'pindl') || userMessage.startsWith(prefix + 'pinterestdl'):
+                await pinterestCommand(sock, chatId, message);
+                return;
+
+            case userMessage.startsWith(prefix + 'antimention'):
                 await antiMentionCommand(sock, chatId, userMessage, senderId, isSenderAdmin, message);
                 return;
 
-            case userMessage.startsWith('.setprefix'):
+            case userMessage.startsWith(prefix + 'setprefix'):
                 await setPrefixCommand(sock, chatId, message);
                 return;
 
@@ -1641,4 +1704,3 @@ module.exports = {
         await handleStatusUpdate(sock, status);
     }
 };
-

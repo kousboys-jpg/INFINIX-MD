@@ -1,13 +1,6 @@
 /**
  * 𝐈𝐍𝐅𝐈𝐍𝐈𝐗•𝐌𝐃 - A WhatsApp Bot
  * Copyright (c) 2026 rebelle masque
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the MIT License.
- * 
- * Credits:
- * - Baileys Library by @adiwajshing
- * - Pair Code implementation inspired by rebelle masque 
  */
 require('./settings')
 const { Boom } = require('@hapi/boom')
@@ -219,7 +212,7 @@ async function startInfinixBot() {
         if (!!global.phoneNumber) {
             phoneNumber = global.phoneNumber
         } else {
-            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFormat: 6281376552730 (without + or spaces) : `)))
+            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number \nFormat: 6281376552730 (without + or spaces) : `)))
         }
 
         // Clean the phone number - remove any non-digit characters
@@ -261,25 +254,83 @@ async function startInfinixBot() {
             console.log(chalk.magenta(` `))
             console.log(chalk.yellow(`🌿Connected to => ` + JSON.stringify(InfinixMD.user, null, 2)))
 
+            
             try {
                 const botNumber = InfinixMD.user.id.split(':')[0] + '@s.whatsapp.net';
-                await InfinixMD.sendMessage(botNumber, {
-                    text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`,
-                    contextInfo: {
-                        forwardingScore: 1,
-                        isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363403933773291@newsletter',
-                            newsletterName: '𝐈𝐍𝐅𝐈𝐍𝐈𝐗•𝐌𝐃',
-                            serverMessageId: -1
+
+                // Profil (PUBLIC/PRIVATE) depuis settings.commandMode sans modifier settings
+                const modeRaw = (settings?.commandMode || settings?.mode || 'public').toString().toLowerCase();
+                const profil = modeRaw.includes('priv') ? 'PRIVATE' : 'PUBLIC';
+
+                // Version affichée (demandée: 1.6)
+                const versionAffichee = '1.6';
+
+                // Uptime
+                const upSec = Math.floor(process.uptime());
+                const h = Math.floor(upSec / 3600);
+                const m = Math.floor((upSec % 3600) / 60);
+                const s = upSec % 60;
+                const uptimeStr = `${h}h ${m}m ${s}s`;
+
+                const caption =
+`╔══════════════════════════════════╗
+        🤖 ${settings?.botName || global.botname || 'INFINIX•MD'}
+╚══════════════════════════════════╝
+
+✅ Bot connecté avec succès !
+⏰ Heure : ${new Date().toLocaleString('fr-FR')}
+🟢 Statut : En ligne et prêt ✅
+
+📌 Profil : ${profil}
+🧩 Version : ${versionAffichee}
+⏱️ Uptime : ${uptimeStr}
+
+━━━━━━━━━━━━━━━━━━━━━━
+📣 Rejoins les canaux officiels :
+
+🔹 Chaîne WhatsApp :
+https://whatsapp.com/channel/0029VbCBdVzE50UZNpbYsn0d
+
+🔹 Telegram :
+http://t.me/+cJv8pOd1Em40ZGFk
+━━━━━━━━━━━━━━━━━━━━━━`;
+
+                const imgPath = path.join(__dirname, 'assets', 'accueil.jpg');
+                const hasImg = fs.existsSync(imgPath);
+
+                if (hasImg) {
+                    await InfinixMD.sendMessage(botNumber, {
+                        image: fs.readFileSync(imgPath),
+                        caption,
+                        contextInfo: {
+                            forwardingScore: 1,
+                            isForwarded: true,
+                            forwardedNewsletterMessageInfo: {
+                                newsletterJid: '120363403933773291@newsletter',
+                                newsletterName: '𝐈𝐍𝐅𝐈𝐍𝐈𝐗•𝐌𝐃',
+                                serverMessageId: -1
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    await InfinixMD.sendMessage(botNumber, {
+                        text: caption,
+                        contextInfo: {
+                            forwardingScore: 1,
+                            isForwarded: true,
+                            forwardedNewsletterMessageInfo: {
+                                newsletterJid: '120363403933773291@newsletter',
+                                newsletterName: '𝐈𝐍𝐅𝐈𝐍𝐈𝐗•𝐌𝐃',
+                                serverMessageId: -1
+                            }
+                        }
+                    });
+                }
             } catch (error) {
-                console.error('Error sending connection message:', error.message)
+                console.error('Error sending connection message:', error?.message || error)
             }
 
-            await delay(1999)
+await delay(1999)
             console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'KNIGHT BOT'} ]`)}\n\n`))
             console.log(chalk.cyan(`< ================================================== >`))
             console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: MR UNIQUE HACKER`))

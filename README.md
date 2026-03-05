@@ -138,41 +138,9 @@ Le bot tourne sous **Node.js** et propose l’authentification via QR Code pour 
 
 ---
 
-## ☕ Me soutenir
-
-<div align="center">
-  <a href="https://buymeacoffee.com/rebelle-masque" target="_blank">
-    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Soutenir%20le%20développeur-FF813F?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me a Coffee">
-  </a>
-</div>
-
-Si ce projet t’aide et que tu veux soutenir le dev, tu peux m’offrir un café ☕  
-Ton soutien aide à maintenir et améliorer ce projet open-source.
-
-<div align="center">
-  <img src="assets/bmc_qr.png" alt="Buy Me a Coffee QR Code" width="200">
-</div>
-
----
-
 ## 📄 Licence
 
 Ce projet est sous licence [MIT License](https://opensource.org/licenses/MIT) — voir le fichier [LICENSE](https://github.com/RebelleMasque/INFINIX-MD/blob/main/LICENSE).
-
----
-
-## 🙌 Contributions
-
-Contributions, issues et demandes de fonctionnalités sont les bienvenues !  
-Tu peux consulter la page des issues :  
-https://github.com/RebelleMasque/issues
-
----
-
-## 🌟 Soutiens le projet
-
-Si tu aimes ce projet, pense à mettre une ⭐ sur GitHub :  
-https://github.com/RebelleMasque/INFINIX-MD.git
 
 ---
 
