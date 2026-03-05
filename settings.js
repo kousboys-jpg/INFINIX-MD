@@ -1,9 +1,9 @@
 const settings = {
-  packname: '𝐈𝐍𝐅𝐈𝐍𝐈𝐗•𝐌𝐃',
-  author: 'rebelle masque',
-  botName: "𝐈𝐍𝐅𝐈𝐍𝐈𝐗•𝐌𝐃",
+  packname: 'BOTE.GANG',
+  author: 'kousbous',
+  botName: "BOTE.GANG",
   botOwner: 'rebelle masque', // ton nom
-  ownerNumber: '2250140768791', //Saisissez votre numéro ici, sans le symbole +. Indiquez simplement l'indicatif du pays et le numéro, sans espace.
+  ownerNumber: '2250101022240', //Saisissez votre numéro ici, sans le symbole +. Indiquez simplement l'indicatif du pays et le numéro, sans espace.
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",
   maxStoreMessages: 20, 
