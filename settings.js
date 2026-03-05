@@ -1,8 +1,8 @@
 const settings = {
-  packname: 'BOTE.GANG',
+  packname: 'infinit bote',
   author: 'kousbous',
   botName: "BOTE.GANG",
-  botOwner: 'rebelle masque', // ton nom
+  botOwner: 'bote gang', // ton nom
   ownerNumber: '2250101022240', //Saisissez votre numéro ici, sans le symbole +. Indiquez simplement l'indicatif du pays et le numéro, sans espace.
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",
