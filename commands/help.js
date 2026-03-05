@@ -223,6 +223,8 @@ async function helpCommand(sock, chatId, message, channelLink) {
 *┋ ➥ ${prefix}instagram*
 *┋ ➥ ${prefix}facebook*
 *┋ ➥ ${prefix}tiktok*
+*┋ ➥ ${prefix}apk*
+*┋ ➥ ${prefix}pinterest*
 *┋ ➥ ${prefix}video*
 *┋ ➥ ${prefix}ytmp4*
 ╰─────────────────────⊷
